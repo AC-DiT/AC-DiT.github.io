@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="AC-DiT: Adaptive Coordination Diffusion Transformer for Mobile Manipulation">
+  <meta name="keywords" content="Robotics, Mobile Manipulation, Diffusion, Transformer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AC-DiT: Adaptive Coordination Diffusion Transformer for Mobile Manipulation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">AC-DiT: Adaptive Coordination Diffusion Transformer for Mobile Manipulation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <strong>Anonymous Author(s)</strong></span>
+          </div>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+            </span>
+          </div> -->
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of Washington,</span>
+            <span class="author-block"><sup>2</sup>Google Research</span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered has-text-centered">
+        <h2 class="title is-3">Demostrations</h2>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Cucumber_1/cucumber_1-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Cucumber_2/Cucumber_2-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Cucumber_3/Cucumber_3-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Bread_1/Bread_1-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Bread_2/Bread_2-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Towel_1/Towel_1-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Towel_2/Towel_2-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Clean_1/Clean_1-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/Clean_2/Clean_2-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recently, mobile manipulation has attracted increasing attention 
+            for enabling language-conditioned robotic control in household tasks.
+            However, existing methods still face challenges in coordinating 
+            mobile base and manipulator, primarily due to two limitations.
+            On the one hand, they fail to explicitly model the influence of 
+            the mobile base on manipulator control, which easily leads to 
+            error accumulation under high degrees of freedom.
+            On the other hand, they treat the entire mobile manipulation 
+            process with the same visual observation modality 
+            (e.g., either all 2D or all 3D), overlooking the distinct 
+            multimodal perception requirements at different stages during
+            mobile manipulation.
+          </p>
+          <p>
+            To address this, we propose 
+            <strong>the Adaptive Coordination Diffusion Transformer (AC-DiT)</strong>, 
+            which enhances mobile base and 
+            manipulator coordination for end-to-end mobile manipulation.
+            First, since the motion of the mobile base directly influences 
+            the manipulator's actions, we introduce a 
+            <strong>mobility-to-body conditioning mechanism</strong> 
+            that guides the model to first extract 
+            base motion representations, which are then used as context prior 
+            for predicting whole-body actions. 
+            This enables whole-body control that accounts for the 
+            potential impact of the mobile base's motion.
+            Second, to meet the perception requirements at different stages of
+            mobile manipulation, we design a 
+            <strong>perception-aware multimodal conditioning strategy</strong> 
+            that dynamically adjusts the fusion weights 
+            between various 2D visual images and 3D point clouds, 
+            yielding visual features tailored to the current perceptual needs.
+            This allows the model to, for example, adaptively rely more on 
+            2D inputs when semantic information is crucial for action prediction, 
+            while placing greater emphasis on 3D geometric information 
+            when precise spatial understanding is required.
+          </p>
+          <p>
+            We empirically validate AC-DiT through extensive experiments on 
+            both simulated and real-world mobile manipulation tasks, 
+            demonstrating superior performance compared to existing methods.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <video id="replay-video"
+              controls
+              muted
+              preload
+              playsinline
+              width="100%">
+          <source src="./static/videos/video_v1.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-five-sixths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="hero-body">
+          <img src="./static/images/teaser.png" alt="teaser" style="width: 100%;">
+          <p class="subtitle has-text-justified">
+            <strong>AC-DiT</strong>, 
+            the proposed end-to-end mobile manipulation framework,
+            enhances the coordination between the mobile base and the manipulator by 
+            introducing two key mechanisms: mobile-to-body conditioning and 
+            perception-aware multimodal adaptation. 
+            The former enables action prediction that conditioning on how upcoming 
+            mobile base movements may affect manipulator control, thereby reducing 
+            error accumulation. The latter constructs multimodal features tailored 
+            to the perception requirements at different stages of the mobile 
+            manipulation process. 
+            Under this paradigm, AC-DiT demonstrates superior performance in both 
+            simulation and real-world environments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">AC-DiT Framework</h2>
+        <div class="hero-body">
+          <img src="./static/images/method.png" alt="teaser" style="width: 100%;">
+          <div class="content has-text-justified">
+            <p>
+              We first train the modules in the grey-shaded region under the supervision 
+              of mobile base actions, allowing the lightweight mobility action head to 
+              learn to extract latent mobility features. After this, we optimize the 
+              entire AC-DiT model, enabling the mobile manipulation action head to 
+              predict both mobile base and manipulator actions.
+            </p>
+            <p>
+              With the <strong>Mobility-to-Body Conditioning</strong> mechanism, this action head 
+              conditions on the extracted latent mobility features, allowing whole-body 
+              action prediction to account for the influence of mobile base motion. 
+            </p>
+            <p>
+              Meanwhile, the <strong>Perception-Aware Multimodal Adaptation</strong> mechanism 
+              enables this action head to adaptively assign different importance weights 
+              to various visual input features, resulting in a perception-aware visual 
+              condition tailored to the perception needs of different manipulation stages.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <div class="content has-text-centered">
+  <video id="replay-video"
+         controls
+         muted
+         preload
+         playsinline
+         width="75%">
+    <source src="./static/videos/replay.mp4"
+            type="video/mp4">
+  </video>
+</div> -->
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<!-- <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+</body>
+</html>
